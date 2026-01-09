@@ -46,7 +46,8 @@ public class ShRole : ICustomRole
     {
         { ItemType.Ammo9x19, 120 }
     };
-    public float DamageMultiplier { get; set; }
+
+    public float DamageMultiplier { get; set; } = 1;
     public SpawnBehaviour SpawnSettings { get; set; } = new()
     {
         Spawn = SpawnType.RoleSpawn,

@@ -22,7 +22,7 @@ public class SerpentsHand : Plugin<Config>
     public override string Name => "SerpentsHand";
     public override string Description => "serpents_hand";
     public override string Author => "MedveMarci";
-    public override Version Version { get; } = new(1, 0, 0);
+    public override Version Version { get; } = new(1, 0, 1);
     public override Version RequiredApiVersion => new(LabApiProperties.CompiledVersion);
     private ShRole _shRole;
     public string githubRepo = "MedveMarci/SerpentsHand";
