@@ -15,13 +15,14 @@ namespace SerpentsHand.ShWave;
 
 public class SerpentsHandWave : CustomTimeBasedWave, IAnnouncedWave, ILimitedWave, IAnimatedWave
 {
+    private List<RespawnTokensManager.Milestone> _milestoneValues = [new(10)];
     public override string Name => "SHWAVE";
     public override Faction TargetFaction => Faction.SCP;
-    public override float InitialSpawnInterval => SerpentsHand.Singleton.Config?.ShWaveConfig.InitialSpawnInterval ?? 320f;
+
+    public override float InitialSpawnInterval =>
+        SerpentsHand.Singleton.Config?.ShWaveConfig.InitialSpawnInterval ?? 320f;
 
     public override IWaveConfig Configuration => SerpentsHand.Singleton.Config?.ShWaveConfig ?? new ShWaveConfig();
-
-    private List<RespawnTokensManager.Milestone> _milestoneValues = [new(10)];
 
     public float AnimationDuration => 13.49f;
     public bool IsAnimationPlaying { get; set; }
@@ -34,10 +35,13 @@ public class SerpentsHandWave : CustomTimeBasedWave, IAnnouncedWave, ILimitedWav
         if (Configuration is not ShWaveConfig shWaveConfig)
             return;
         InitialRespawnTokens = shWaveConfig.InitialTokens;
-        
-        if (SerpentsHand.Singleton.Config?.ShWaveMilestones != null && SerpentsHand.Singleton.Config.ShWaveMilestones.Count > 0)
-            _milestoneValues = SerpentsHand.Singleton.Config.ShWaveMilestones.ConvertAll(milestone => new RespawnTokensManager.Milestone(milestone));
-        
+
+        if (SerpentsHand.Singleton.Config?.ShWaveMilestones != null &&
+            SerpentsHand.Singleton.Config.ShWaveMilestones.Count > 0)
+            _milestoneValues =
+                SerpentsHand.Singleton.Config.ShWaveMilestones.ConvertAll(milestone =>
+                    new RespawnTokensManager.Milestone(milestone));
+
         RespawnTokensManager.Milestones[Faction.SCP] = _milestoneValues;
     }
 
@@ -50,7 +54,7 @@ public class SerpentsHandWave : CustomTimeBasedWave, IAnnouncedWave, ILimitedWav
     {
         foreach (var player in spawnedPlayers)
         {
-            player.SetCustomRole(SerpentsHand.Singleton.Config?.ShRole.Id ?? 2);
+            player.SetCustomRole(SerpentsHand.Singleton.Config?.ShRole.Id ?? 4000);
             Timing.CallDelayed(0.1f,
                 () =>
                 {
