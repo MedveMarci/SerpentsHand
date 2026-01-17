@@ -13,7 +13,8 @@ public static class DmsPatch
     public static IEnumerable<CodeInstruction> Transpiler(IEnumerable<CodeInstruction> instructions)
     {
         var codes = new List<CodeInstruction>(instructions);
-        var getRespawnTokensMethod = AccessTools.PropertyGetter(typeof(ILimitedWave), nameof(ILimitedWave.RespawnTokens));
+        var getRespawnTokensMethod =
+            AccessTools.PropertyGetter(typeof(ILimitedWave), nameof(ILimitedWave.RespawnTokens));
         var helperMethod = AccessTools.Method(typeof(DmsPatch), nameof(HasShRespawnTokens));
 
         for (var i = 0; i < codes.Count - 5; i++)
@@ -50,6 +51,7 @@ public static class DmsPatch
                 ]);
                 return codes;
             }
+
             break;
         }
 

@@ -1,16 +1,11 @@
 ﻿using System;
 using System.Linq;
-using System.Text;
-using Cassie;
 using LabApi.Features.Wrappers;
-using NorthwoodLib.Pools;
 using PlayerRoles;
 using PlayerStatsSystem;
 using Respawning;
 using Respawning.Objectives;
-using Respawning.Waves;
-using SerpentsHand.Managers;
-using Subtitles;
+using SerpentsHand.ApiFeatures;
 using UncomplicatedCustomRoles.Extensions;
 
 namespace SerpentsHand.ShWave.Objectives;
@@ -46,12 +41,13 @@ public sealed class ScpKillObjective : FactionObjectiveBase, ICustomObjective
         var attacker = dhb is AttackerDamageHandler adh
             ? adh.Attacker.Hub
             : Player.ReadyList.First(p => p.Role is RoleTypeId.Scp106).ReferenceHub;
-            
+
         if (!attacker) return;
         var killer = Player.Get(attacker);
         var victim = Player.Get(victimHub);
         if (killer == null || victim == null) return;
-        var faction = killer.TryGetSummonedInstance(out var customRole) && customRole.Role.Id == 2
+        var faction = killer.TryGetSummonedInstance(out var customRole) &&
+                      customRole.Role.Id == (SerpentsHand.Singleton.Config?.ShRole.Id ?? 4000)
             ? Faction.SCP
             : killer.RoleBase.Team.GetFaction();
 
@@ -83,9 +79,10 @@ public sealed class ScpKillObjective : FactionObjectiveBase, ICustomObjective
 
     private static bool IsValidEnemy(Player victim)
     {
-        var faction = victim.TryGetSummonedInstance(out var customRole) && customRole.Role.Id == 2
-            ? Faction.SCP
-            : victim.RoleBase.Team.GetFaction();
+        var faction = victim.TryGetSummonedInstance(out var customRole) && customRole.Role.Id ==
+            (SerpentsHand.Singleton.Config?.ShRole.Id ?? 4000)
+                ? Faction.SCP
+                : victim.RoleBase.Team.GetFaction();
         return faction != Faction.SCP;
     }
 
