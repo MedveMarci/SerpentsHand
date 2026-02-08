@@ -21,7 +21,7 @@ public class SerpentsHand : Plugin<Config>
     public override string Name => "SerpentsHand";
     public override string Description => "serpents_hand";
     public override string Author => "MedveMarci";
-    public override Version Version { get; } = new(1, 0, 2);
+    public override Version Version { get; } = new(1, 0, 3);
     public override Version RequiredApiVersion => new(LabApiProperties.CompiledVersion);
 
     public override void Enable()
