@@ -20,9 +20,9 @@ public class SerpentsHandWave : CustomTimeBasedWave, IAnnouncedWave, ILimitedWav
     public override Faction TargetFaction => Faction.SCP;
 
     public override float InitialSpawnInterval =>
-        SerpentsHand.Singleton.Config?.ShWaveConfig.InitialSpawnInterval ?? 320f;
+        SerpentsHand.Singleton.Config.ShWaveConfig.InitialSpawnInterval;
 
-    public override IWaveConfig Configuration => SerpentsHand.Singleton.Config?.ShWaveConfig ?? new ShWaveConfig();
+    public override IWaveConfig Configuration => SerpentsHand.Singleton.Config.ShWaveConfig;
 
     public float AnimationDuration => 13.49f;
     public bool IsAnimationPlaying { get; set; }
@@ -36,8 +36,7 @@ public class SerpentsHandWave : CustomTimeBasedWave, IAnnouncedWave, ILimitedWav
             return;
         InitialRespawnTokens = shWaveConfig.InitialTokens;
 
-        if (SerpentsHand.Singleton.Config?.ShWaveMilestones != null &&
-            SerpentsHand.Singleton.Config.ShWaveMilestones.Count > 0)
+        if (SerpentsHand.Singleton.Config.ShWaveMilestones.Count > 0)
             _milestoneValues =
                 SerpentsHand.Singleton.Config.ShWaveMilestones.ConvertAll(milestone =>
                     new RespawnTokensManager.Milestone(milestone));
@@ -54,7 +53,7 @@ public class SerpentsHandWave : CustomTimeBasedWave, IAnnouncedWave, ILimitedWav
     {
         foreach (var player in spawnedPlayers)
         {
-            player.SetCustomRole(SerpentsHand.Singleton.Config?.ShRole.Id ?? 4000);
+            player.SetCustomRole(SerpentsHand.Singleton.Config.ShRole.Id);
             Timing.CallDelayed(0.1f,
                 () =>
                 {
