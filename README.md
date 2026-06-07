@@ -12,9 +12,9 @@ An SCP: Secret Laboratory LabApi plugin which adds Serpent's Hand to the game.
 # Installation
 
 - Download
-  `SerpentsHand.dll`, [UncomplicatedCustomRoles-LabAPI](https://github.com/UncomplicatedCustomServer/UncomplicatedCustomRoles/releases/latest), [CustomRespawnWaves](https://github.com/SlejmUr/CustomRespawnWaves/releases)
+  `SerpentsHand.dll`, [UncomplicatedCustomRoles](https://github.com/UncomplicatedCustomServer/UncomplicatedCustomRoles/releases/latest), [CustomRespawnWaves](https://github.com/SlejmUr/CustomRespawnWaves/releases)
   and `dependencies.zip`.
-- Move `SerpentsHand.dll`, `UncomplicatedCustomRoles-LabAPI.dll` and `CustomRespawnWaves.dll` to => /SCP Secret
+- Move `SerpentsHand.dll`, `UncomplicatedCustomRoles.dll` and `CustomRespawnWaves.dll` to => /SCP Secret
   Laboratory/LabApi/plugins/global/
 - Unzip `dependencies.zip` to => /SCP Secret Laboratory/LabApi/dependencies/global/
 
