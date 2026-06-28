@@ -49,6 +49,6 @@ internal static class EventHandler
 
     public static void OnWaitingForPlayers()
     {
-        ApiManager.CheckForUpdates();
+        VersionManager.CheckForUpdates();
     }
 }

@@ -44,6 +44,17 @@ public class SerpentsHandWave : CustomTimeBasedWave, IAnnouncedWave, ILimitedWav
         RespawnTokensManager.Milestones[Faction.SCP] = _milestoneValues;
     }
 
+    public override void OnWaveSpawned()
+    {
+        if (SerpentsHand.Singleton.Config.ShWaveConfig.ResetOtherWavesOnSpawn)
+        {
+            base.OnWaveSpawned();
+            return;
+        }
+
+        Timer.Reset();
+    }
+
     public override void PopulateQueue(Queue<RoleTypeId> queueToFill, int playersToSpawn)
     {
         for (var i = 0; i < playersToSpawn; i++) queueToFill.Enqueue(RoleTypeId.CustomRole);
