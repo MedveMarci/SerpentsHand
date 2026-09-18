@@ -21,7 +21,7 @@ public class ShRole : EventCustomRole
 
     public override string Nickname { get; set; } = "";
 
-    [YamlIgnore] public override string CustomInfo { get; set; } = "<color=#C50000>SCP</color>";
+    [YamlIgnore] public override string CustomInfo { get; set; } = "";
 
     public override string BadgeName { get; set; } = "";
     public override string BadgeColor { get; set; } = "";

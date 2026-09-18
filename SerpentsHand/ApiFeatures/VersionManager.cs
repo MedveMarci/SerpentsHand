@@ -107,7 +107,7 @@ internal static class VersionManager
         return await task;
     }
 
-    private static (HttpStatusCode code, string? msg) ParseResponse(string json)
+    private static (HttpStatusCode code, string msg) ParseResponse(string json)
     {
         try
         {

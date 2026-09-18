@@ -40,7 +40,7 @@ public sealed class ScpKillObjective : FactionObjectiveBase, ICustomObjective
             dhb.DeathScreenText != DeathTranslations.PocketDecay.DeathscreenTranslation) return;
         var attacker = dhb is AttackerDamageHandler adh
             ? adh.Attacker.Hub
-            : Player.ReadyList.First(p => p.Role is RoleTypeId.Scp106).ReferenceHub;
+            : Player.ReadyList.FirstOrDefault(p => p.Role is RoleTypeId.Scp106)?.ReferenceHub;
 
         if (!attacker) return;
         var killer = Player.Get(attacker);

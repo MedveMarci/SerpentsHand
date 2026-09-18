@@ -1,3 +1,16 @@
+## [1.2.0]
+
+### Added
+- **RespawnTimer integration.** When RespawnTimer is installed, the Serpent's Hand wave is
+  registered with it on startup, providing the `{shminutes}`, `{shseconds}` and `{shtoken}`
+  placeholders and making `{team}` and `{next_team}` display `Serpent's Hand`.
+
+### Changed
+- RespawnTimer is now a soft dependency resolved through reflection instead of a hard assembly
+  reference. Previously the plugin was compiled against `RespawnTimer-HSM.dll`, so it failed to
+  load on servers without that exact variant installed; it now works with all three variants
+  (`RespawnTimer`, `RespawnTimer-HSM`, `RespawnTimer-RueI`) and with none of them.
+
 ## [1.1.0]
 
 ### Added
@@ -14,6 +27,8 @@
 ### Fixed
 - The wave announcement can now be disabled by leaving it empty.
 - Fixed custom modules not being applied correctly to spawned members.
+- Fixed an `InvalidOperationException` in `ScpKillObjective` when a player died
+  from Pocket Dimension decay while no SCP-106 was present on the server.
 
 ## [1.0.0]
 
