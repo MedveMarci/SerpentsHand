@@ -6,6 +6,7 @@ using PlayerStatsSystem;
 using Respawning;
 using Respawning.Objectives;
 using SerpentsHand.ApiFeatures;
+using UncomplicatedCustomRoles.API.Features;
 using UncomplicatedCustomRoles.Extensions;
 
 namespace SerpentsHand.ShWave.Objectives;
@@ -36,20 +37,14 @@ public sealed class ScpKillObjective : FactionObjectiveBase, ICustomObjective
 
     private void OnKill(ReferenceHub victimHub, DamageHandlerBase dhb)
     {
-        if (dhb is not AttackerDamageHandler &&
-            dhb.DeathScreenText != DeathTranslations.PocketDecay.DeathscreenTranslation) return;
-        var attacker = dhb is AttackerDamageHandler adh
-            ? adh.Attacker.Hub
-            : Player.ReadyList.First(p => p.Role is RoleTypeId.Scp106).ReferenceHub;
+        if (dhb is not AttackerDamageHandler && dhb.DeathScreenText != DeathTranslations.PocketDecay.DeathscreenTranslation) return;
+        ReferenceHub attacker = dhb is AttackerDamageHandler adh ? adh.Attacker.Hub : Player.ReadyList.FirstOrDefault(p => p.Role is RoleTypeId.Scp106)?.ReferenceHub;
 
         if (!attacker) return;
-        var killer = Player.Get(attacker);
-        var victim = Player.Get(victimHub);
+        Player killer = Player.Get(attacker);
+        Player victim = Player.Get(victimHub);
         if (killer == null || victim == null) return;
-        var faction = killer.TryGetSummonedInstance(out var customRole) &&
-                      customRole.Role.Id == (SerpentsHand.Singleton.Config?.ShRole.Id ?? 4000)
-            ? Faction.SCP
-            : killer.RoleBase.Team.GetFaction();
+        Faction faction = killer.TryGetSummonedInstance(out SummonedCustomRole customRole) && customRole.Role.Id == (SerpentsHand.Singleton.Config?.ShRole.Id ?? 4000) ? Faction.SCP : killer.RoleBase.Team.GetFaction();
 
         if (!IsValidFaction(faction) || !IsValidEnemy(victim)) return;
         if (ScpKillInfluence != 0)
@@ -57,7 +52,7 @@ public sealed class ScpKillObjective : FactionObjectiveBase, ICustomObjective
         if (ScpKillTimer != 0)
             ReduceTimer(faction, ScpKillTimer);
 
-        var usurpation = new KillObjectiveFootprint
+        KillObjectiveFootprint usurpation = new()
         {
             InfluenceReward = ScpKillInfluence,
             TimeReward = ScpKillTimer,
@@ -67,7 +62,7 @@ public sealed class ScpKillObjective : FactionObjectiveBase, ICustomObjective
 
         try
         {
-            var killObjective = (HumanKillObjective)FactionInfluenceManager.Objectives[_usurpationIndex];
+            HumanKillObjective killObjective = (HumanKillObjective)FactionInfluenceManager.Objectives[_usurpationIndex];
             killObjective.ObjectiveFootprint = usurpation;
             killObjective.ServerSendUpdate();
         }
@@ -79,10 +74,7 @@ public sealed class ScpKillObjective : FactionObjectiveBase, ICustomObjective
 
     private static bool IsValidEnemy(Player victim)
     {
-        var faction = victim.TryGetSummonedInstance(out var customRole) && customRole.Role.Id ==
-            (SerpentsHand.Singleton.Config?.ShRole.Id ?? 4000)
-                ? Faction.SCP
-                : victim.RoleBase.Team.GetFaction();
+        Faction faction = victim.TryGetSummonedInstance(out SummonedCustomRole customRole) && customRole.Role.Id == (SerpentsHand.Singleton.Config?.ShRole.Id ?? 4000) ? Faction.SCP : victim.RoleBase.Team.GetFaction();
         return faction != Faction.SCP;
     }
 

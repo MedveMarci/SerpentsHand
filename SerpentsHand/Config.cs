@@ -10,15 +10,12 @@ public class Config
     public bool Debug { get; set; } = false;
 
     [Description("The announcement when the Serpents Hand wave spawns.")]
-    public string ShWaveAnnouncement { get; set; } =
-        "SECURITY ALERT. Serpents Hand activity detected. All security personnel must proceed with emergency protocol _SUFFIX_PLURAL_REGULAR.";
+    public string ShWaveAnnouncement { get; set; } = "SECURITY ALERT. Serpents Hand activity detected. All security personnel must proceed with emergency protocol _SUFFIX_PLURAL_REGULAR.";
 
     [Description("The subtitle for the Serpents Hand wave announcement.")]
-    public string ShWaveSubtitle { get; set; } =
-        "<pos=-0.8%,10em> <color=#FF96DE>C.A.S.S.I.E : </color></pos>Security Alert. Serpent's Hand activity detected. All security personnel must proceed with emergency protocols.";
+    public string ShWaveSubtitle { get; set; } = "<pos=-0.8%,10em> <color=#FF96DE>C.A.S.S.I.E : </color></pos>Security Alert. Serpent's Hand activity detected. All security personnel must proceed with emergency protocols.";
 
-    [Description(
-        "The amounts of point to add to the SH Wave when an SCP kills someone. By default, SCPs need to kill 10 people to gain a respawn token.")]
+    [Description("The amounts of point to add to the SH Wave when an SCP kills someone. By default, SCPs need to kill 10 people to gain a respawn token.")]
     public int ScpKillPointInfluence { get; set; } = 1;
 
     [Description("The amount of time to reduce from the SH Wave when an SCP kills someone.")]

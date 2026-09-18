@@ -6,6 +6,7 @@ namespace SerpentsHand.ApiFeatures;
 internal static class LogManager
 {
     private static bool DebugEnabled => SerpentsHand.Singleton?.Config.Debug ?? false;
+
     private static string PluginName => SerpentsHand.Singleton?.Name ?? "SerpentsHand";
 
     public static void Debug(string message)
