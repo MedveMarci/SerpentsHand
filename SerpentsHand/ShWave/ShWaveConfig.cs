@@ -25,8 +25,6 @@ public sealed class ShWaveConfig : CustomWaveConfig
     [Description("The amount of seconds the wave starts with.")]
     public float InitialSpawnInterval { get; set; } = 320f;
 
-    [Description(
-        "If true, spawning the SH wave also resets the NTF/Chaos respawn timers (vanilla behaviour). " +
-        "If false, the SH wave spawns independently and won't put NTF/Chaos back on a full timer.")]
+    [Description("If true, spawning the SH wave also resets the NTF/Chaos respawn timers (vanilla behaviour). " + "If false, the SH wave spawns independently and won't put NTF/Chaos back on a full timer.")]
     public bool ResetOtherWavesOnSpawn { get; set; } = true;
 }

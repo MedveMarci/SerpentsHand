@@ -16,34 +16,29 @@ internal static class RespawnTimerIntegration
 
     private const float SpawnDuration = 14f;
 
-    private static Type TimerApi => AppDomain.CurrentDomain.GetAssemblies()
-        .Select(GetTimerApiType)
-        .FirstOrDefault(type => type is not null);
+    private static Type TimerApi => AppDomain.CurrentDomain.GetAssemblies().Select(GetTimerApiType).FirstOrDefault(type => type is not null);
 
     internal static void Enable()
     {
-        var timerApi = TimerApi;
+        Type timerApi = TimerApi;
         if (timerApi is null)
         {
             LogManager.Debug("RespawnTimer: Plugin not found, skipping integration.");
             return;
         }
 
-        var register = timerApi.GetMethod("RegisterWave", BindingFlags.Public | BindingFlags.Static, null,
-            [typeof(Type), typeof(string), typeof(string), typeof(float)], null);
+        MethodInfo register = timerApi.GetMethod("RegisterWave", BindingFlags.Public | BindingFlags.Static, null, [typeof(Type), typeof(string), typeof(string), typeof(float)], null);
 
         if (register is null)
         {
-            LogManager.Warn(
-                "RespawnTimer: TimerAPI.RegisterWave(Type, string, string, float) not found, skipping integration. Is RespawnTimer up to date?");
+            LogManager.Warn("RespawnTimer: TimerAPI.RegisterWave(Type, string, string, float) not found, skipping integration. Is RespawnTimer up to date?");
             return;
         }
 
         try
         {
             register.Invoke(null, [typeof(SerpentsHandWave), DisplayName, Placeholder, SpawnDuration]);
-            LogManager.Debug(
-                "RespawnTimer: Integration enabled, {shminutes} and {shseconds} placeholders registered.");
+            LogManager.Debug("RespawnTimer: Integration enabled, {shminutes} and {shseconds} placeholders registered.");
         }
         catch (Exception e)
         {
@@ -53,10 +48,9 @@ internal static class RespawnTimerIntegration
 
     internal static void Disable()
     {
-        var timerApi = TimerApi;
+        Type timerApi = TimerApi;
 
-        var unregister = timerApi?.GetMethod("UnregisterWave", BindingFlags.Public | BindingFlags.Static, null,
-            [typeof(Type)], null);
+        MethodInfo unregister = timerApi?.GetMethod("UnregisterWave", BindingFlags.Public | BindingFlags.Static, null, [typeof(Type)], null);
 
         if (unregister is null)
             return;

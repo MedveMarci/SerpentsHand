@@ -18,10 +18,15 @@ public class SerpentsHand : Plugin<Config>
     public static SerpentsHand Singleton;
     private Harmony _harmony;
     private ShRole _shRole;
+
     public override string Name => "SerpentsHand";
+
     public override string Description => "serpents_hand";
+
     public override string Author => "MedveMarci";
+
     public override Version Version { get; } = new(1, 2, 0);
+
     public override Version RequiredApiVersion => new(LabApiProperties.CompiledVersion);
 
     public override void Enable()
